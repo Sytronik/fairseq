@@ -78,7 +78,7 @@ class FastGroupedQueryAttention(MultiheadAttention):
             RotaryEmbedding(
                 dim=self.head_dim // 2,
                 theta=rope_args.get("theta", 10000),
-                interpolate_factor=rope_args.get("interpolate_factor", 1.0),
+                scaling_factor=rope_args.get("scaling_factor", 1.0),
             )
             if self.rope
             else None
@@ -102,7 +102,9 @@ class FastGroupedQueryAttention(MultiheadAttention):
                     qn_block_size,
                 )
             else:
-                raise NotImplementedError("Fused qkv is only supported for self-attention or encoder-decoder attention. Either of the two must be True.")
+                raise NotImplementedError(
+                    "Fused qkv is only supported for self-attention or encoder-decoder attention. Either of the two must be True."
+                )
         else:
             del self.k_proj, self.v_proj
             self.k_proj = quant_noise(
