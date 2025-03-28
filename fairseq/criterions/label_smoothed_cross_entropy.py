@@ -66,7 +66,7 @@ def label_smoothed_nll_loss(
             .clamp(min=1)
             .float()
         )
-        nll_loss = nll_loss / token_lens
+        nll_loss = nll_loss.squeeze(dim=-1).sum(dim=-1) / token_lens
         smooth_loss = smooth_loss.squeeze(dim=-1).sum(dim=-1) / token_lens
 
     if reduce:
