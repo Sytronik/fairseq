@@ -38,7 +38,7 @@ class LabelSmoothedCrossEntropyCriterionConfig(FairseqDataclass):
 
 
 def label_smoothed_nll_loss(
-    lprobs, target, epsilon, ignore_index=None, len_normalize=False, reduce=True
+    lprobs, target, epsilon, ignore_index=None, length_normalize=False, reduce=True
 ):
     B, L, _ = lprobs.shape
 
@@ -56,7 +56,7 @@ def label_smoothed_nll_loss(
         nll_loss = nll_loss.squeeze(-1)
         smooth_loss = smooth_loss.squeeze(-1)
 
-    if len_normalize:
+    if length_normalize:
         token_lens = (
             (
                 target.ne(ignore_index).squeeze(-1).sum(-1)
@@ -140,7 +140,7 @@ class LabelSmoothedCrossEntropyCriterion(FairseqCriterion):
             self.eps,
             reduce=reduce,
             ignore_index=self.padding_idx,
-            len_normalize=self.length_normalize_loss,
+            length_normalize=self.length_normalize_loss,
         )
         return loss, nll_loss
 
