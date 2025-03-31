@@ -411,6 +411,11 @@ def should_stop_early(cfg: DictConfig, valid_loss: float) -> bool:
     if prev_best is None or is_better(valid_loss, prev_best):
         should_stop_early.best = valid_loss
         should_stop_early.num_runs = 0
+        logger.info(
+            "remaining patience {}".format(
+                cfg.checkpoint.patience - should_stop_early.num_runs
+            )
+        )
         return False
     else:
         should_stop_early.num_runs += 1
