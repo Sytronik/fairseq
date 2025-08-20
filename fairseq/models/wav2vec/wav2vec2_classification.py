@@ -21,8 +21,6 @@ from fairseq.models.wav2vec.wav2vec2_asr import (
 )
 from fairseq.tasks import FairseqTask
 
-logging.basicConfig(level=logging.DEBUG)
-
 
 @dataclass
 class Wav2Vec2ClassificationConfig(Wav2Vec2AsrConfig):
