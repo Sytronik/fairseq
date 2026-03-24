@@ -5,7 +5,7 @@ requires = [
   "wandb",
   "tensorboardx",
   "numpy>=1.21.3",
-  "torch>=2.4.1",
+  "torch>=2.4.1,<2.11.0",
   "setuptools>=18.0",
 ]
 build-backend = "setuptools.build_meta"
